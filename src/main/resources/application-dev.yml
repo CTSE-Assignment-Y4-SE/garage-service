@@ -1,0 +1,35 @@
+server:
+  port: 9090
+
+grpc:
+  server:
+    port: 7070
+  address:
+    name: localhost
+    service-port:
+      user: 7072
+
+spring:
+  application:
+    name: garage-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/garage-service
+    username: postgres
+    password: Root@123
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 5
+      connection-timeout: 30000
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show_sql: true
+  liquibase:
+    change-log: classpath:/db/changelog/changelog-master.yml
+  kafka:
+    producer:
+      bootstrap-servers: localhost:29092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer

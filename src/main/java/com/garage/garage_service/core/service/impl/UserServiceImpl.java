@@ -66,8 +66,8 @@ public class UserServiceImpl implements UserService {
 			String simplifiedRole = authority.replaceFirst("^ROLE_", "");
 
 			UserResponseDto userResponseDto = new UserResponseDto();
-            assert userId != null;
-            userResponseDto.setUserId(Long.valueOf(userId));
+			assert userId != null;
+			userResponseDto.setUserId(Long.valueOf(userId));
 			userResponseDto.setEmail(username);
 			userResponseDto.setRole(Role.valueOf(simplifiedRole));
 

@@ -56,7 +56,7 @@ jobs:
 
       - name: Update Image Tag in Kubernetes Deployment
         run: |
-          sed -i "s|ghcr.io/ctse-assignment-y4-se/garage-service:.*|ghcr.io/ctse-assignment-y4-se/garage-service:${{ env.IMAGE_TAG }}|" infrastructure/k8s/user-service/deployment.yaml
+          sed -i "s|ghcr.io/ctse-assignment-y4-se/garage-service:.*|ghcr.io/ctse-assignment-y4-se/garage-service:${{ env.IMAGE_TAG }}|" infrastructure/k8s/garage-service/deployment.yaml
 
       - name: Commit and Push Changes
         run: |

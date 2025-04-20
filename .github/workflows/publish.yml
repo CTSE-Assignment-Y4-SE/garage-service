@@ -49,7 +49,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           image: ghcr.io/ctse-assignment-y4-se/garage-service:${{ env.IMAGE_TAG }}
-          args: --severity-threshold=hig
+          args: --severity-threshold=high
 
       - name: Push Docker Image to GitHub Packages
         run: |

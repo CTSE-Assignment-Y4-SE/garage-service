@@ -39,11 +39,8 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build -x test
 
-      # 🔐 Snyk Vulnerability Test
       - name: Install Snyk CLI
-        run: |
-          curl -s https://snyk.io/install | bash
-          echo "$HOME/.snyk" >> $GITHUB_PATH
+        uses: snyk/actions/setup@v1
 
       - name: Authenticate with Snyk
         run: snyk auth ${{ secrets.SNYK_TOKEN }}

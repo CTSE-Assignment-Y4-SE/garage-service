@@ -39,9 +39,21 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build -x test
 
+      - name: 🔍 Snyk Gradle scan
+        uses: snyk/actions/gradle@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: test
+
       - name: Build Docker Image
         run: |
           docker build -t ghcr.io/ctse-assignment-y4-se/garage-service:${{ env.IMAGE_TAG }} .
+
+      - name: Scan Docker image with Snyk
+        run: snyk container test ghcr.io/ctse-assignment-y4-se/garage-service:${{ env.IMAGE_TAG }}
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       - name: Push Docker Image to GitHub Packages
         run: |

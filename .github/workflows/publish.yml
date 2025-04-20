@@ -39,6 +39,12 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build -x test
 
+      - name: Switch to Java 17 for Snyk
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
       - name: 🔍 Snyk Gradle scan
         uses: snyk/actions/gradle@master
         env:

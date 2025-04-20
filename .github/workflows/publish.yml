@@ -39,13 +39,10 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build -x test
 
-      - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/gradle@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --severity-threshold=high
 
       - name: Build Docker Image
         run: |

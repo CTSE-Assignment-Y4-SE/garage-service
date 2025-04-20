@@ -39,12 +39,6 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build -x test
 
-      - uses: actions/checkout@master
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/gradle@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
       - name: Build Docker Image
         run: |
           docker build -t ghcr.io/ctse-assignment-y4-se/garage-service:${{ env.IMAGE_TAG }} .
@@ -72,3 +66,12 @@ jobs:
           git add ./k8s/garage-service/deployment.yaml
           git commit -m "Feat: update garage-service image tag to ${{ env.IMAGE_TAG }}"
           git push https://x-access-token:${{ secrets.GH_PAT }}@github.com/CTSE-Assignment-Y4-SE/infrastructure.git HEAD:main
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/gradle@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

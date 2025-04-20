@@ -39,6 +39,19 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build -x test
 
+      # 🔐 Snyk Vulnerability Test
+      - name: Install Snyk CLI
+        run: |
+          curl -s https://snyk.io/install | bash
+          echo "$HOME/.snyk" >> $GITHUB_PATH
+
+      - name: Authenticate with Snyk
+        run: snyk auth ${{ secrets.SNYK_TOKEN }}
+
+      - name: Run Snyk Test on Gradle Project
+        run: snyk test --all-sub-projects
+        continue-on-error: true
+
       - name: Build Docker Image
         run: |
           docker build -t ghcr.io/ctse-assignment-y4-se/garage-service:${{ env.IMAGE_TAG }} .
